@@ -21,10 +21,10 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <>
-      <ul className={css.castList}>
-        {cast.length > 0 &&
-          cast.map(({ profile, name, character, id }) => {
+    <section className={css.sectionCast}>
+      {cast.length > 0 && (
+        <ul className={css.castList}>
+          {cast.map(({ profile, name, character, id }) => {
             return (
               <li key={id} className={css.castListItem}>
                 <img
@@ -37,8 +37,12 @@ const Cast = () => {
               </li>
             );
           })}
-      </ul>
-    </>
+        </ul>
+      )}
+      {cast.length === 0 && (
+        <p className={css.error}>Sorry, we don't have cast for this movie</p>
+      )}
+    </section>
   );
 };
 

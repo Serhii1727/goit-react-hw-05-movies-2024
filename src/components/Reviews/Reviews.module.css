@@ -1,0 +1,16 @@
+.sectionReviews {
+  padding: 20px;
+}
+
+.reviewsList {
+  list-style-type: decimal;
+}
+
+.reviewsListItem:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.author {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
