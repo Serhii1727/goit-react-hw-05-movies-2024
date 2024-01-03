@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  height: 70px;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+}
+
+.navList {
+  padding-left: 40px;
+  display: flex;
+  align-items: center;
+  width: 200px;
+}
+
+.navItem {
+  list-style-type: none;
+  font-weight: 800;
+}
+
+.navItem:not(:last-child) {
+  margin-right: 20px;
+}

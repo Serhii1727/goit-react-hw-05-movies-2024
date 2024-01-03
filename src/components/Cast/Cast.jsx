@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchGetCastMovie } from 'components/services/api';
 import { API } from 'components/services/support';
+import css from './Cast.module.css';
+import defaultImage from '../services/DefaultImage/defaultimage.jpg';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);
@@ -20,15 +22,18 @@ const Cast = () => {
 
   return (
     <>
-      <div>Cast</div>
-      <ul>
+      <ul className={css.castList}>
         {cast.length > 0 &&
           cast.map(({ profile, name, character, id }) => {
             return (
-              <li key={id}>
-                <img src={`${API.getImage}${profile}`} alt={name} />
+              <li key={id} className={css.castListItem}>
+                <img
+                  className={css.image}
+                  src={profile ? `${API.getImage}${profile}` : defaultImage}
+                  alt={name}
+                />
                 <p>{name}</p>
-                <p>{character}</p>
+                <p>Character: {character}</p>
               </li>
             );
           })}

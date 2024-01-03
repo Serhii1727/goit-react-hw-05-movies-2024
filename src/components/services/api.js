@@ -2,7 +2,7 @@ import { API, options } from './support';
 
 export const fetchGetTrendingMovies = () => {
   return fetch(
-    'https://api.themoviedb.org/3/trending/all/week?language=en-US',
+    'https://api.themoviedb.org/3/trending/all/day?language=en-US',
     options
   ).then(res => res.json());
 };

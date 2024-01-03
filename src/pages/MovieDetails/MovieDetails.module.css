@@ -1,0 +1,101 @@
+.main {
+}
+
+.sectionBitton {
+  padding-left: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 85px;
+  height: 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid orange;
+  background-color: white;
+}
+
+.button:hover {
+  color: white;
+  background-color: orange;
+}
+
+.icon {
+  display: flex;
+}
+
+.containerMovie {
+  display: flex;
+  padding-left: 40px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(186, 184, 184);
+}
+
+.image {
+  height: 400px;
+  width: 300px;
+}
+
+.conteinerInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+}
+
+.containerTitle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.sectionAditionalInfo {
+  padding-left: 40px;
+}
+
+.nameMovie {
+  margin-right: 5px;
+}
+
+.infoScore {
+  margin-bottom: 20px;
+}
+
+.overviewTitle {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.overviewInfo {
+  margin-bottom: 20px;
+}
+
+.genresTitle {
+  font-weight: 500;
+}
+
+.dateRelease {
+  font-weight: 700;
+}
+
+.sectionAditionalInfo {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(186, 184, 184);
+}
+
+.aditionalList {
+  margin-top: 10px;
+}
+
+.aditionalListItem:not(:last-child) {
+  margin-bottom: 2px;
+}
