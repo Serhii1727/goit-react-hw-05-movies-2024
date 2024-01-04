@@ -1,9 +1,6 @@
-.sectionReviews {
-  padding: 20px;
-}
-
 .reviewsList {
-  list-style-type: decimal;
+  list-style-type: square;
+  padding: 20px;
 }
 
 .reviewsListItem:not(:last-child) {
@@ -13,4 +10,9 @@
 .author {
   font-weight: 700;
   margin-bottom: 10px;
+}
+
+.notFound {
+  list-style-type: none;
+  text-align: center;
 }

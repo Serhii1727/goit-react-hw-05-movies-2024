@@ -1,7 +1,4 @@
-.main {
-}
-
-.sectionBitton {
+.sectionButton {
   padding-left: 40px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -30,9 +27,16 @@
 
 .containerMovie {
   display: flex;
+
   padding-left: 40px;
   padding-bottom: 10px;
   border-bottom: 1px solid rgb(186, 184, 184);
+}
+
+.imageContainer {
+  display: flex;
+  height: 400px;
+  width: 300px;
 }
 
 .image {
@@ -98,4 +102,22 @@
 
 .aditionalListItem:not(:last-child) {
   margin-bottom: 2px;
+}
+
+.genresList {
+  display: flex;
+}
+
+.genre {
+  padding-top: 20px;
+  list-style-type: none;
+}
+
+.genre:not(:last-child) {
+  margin-right: 10px;
+}
+
+.notFoundGenres {
+  list-style-type: none;
+  margin-top: 20px;
 }

@@ -18,20 +18,24 @@ const Reviews = () => {
   }, [movieId]);
   return (
     <section className={css.sectionReviews}>
-      <ul className={css.reviewsList}>
-        {reviews.length > 0 ? (
-          reviews.map(({ author, content, id }) => {
-            return (
-              <li key={id} className={css.reviewsListItem}>
-                <p className={css.author}>Author: {author}</p>
-                <p className={css.content}>{content}</p>
-              </li>
-            );
-          })
-        ) : (
-          <p>We don`t have any reviews for this movie</p>
-        )}
-      </ul>
+      {
+        <ul className={css.reviewsList}>
+          {reviews.length > 0 ? (
+            reviews.map(({ author, content, id }) => {
+              return (
+                <li key={id} className={css.reviewsListItem}>
+                  <p className={css.author}>Author: {author}</p>
+                  <p className={css.content}>{content}</p>
+                </li>
+              );
+            })
+          ) : (
+            <li className={css.notFound}>
+              We don`t have any reviews for this movie
+            </li>
+          )}
+        </ul>
+      }
     </section>
   );
 };

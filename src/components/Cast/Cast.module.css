@@ -1,5 +1,5 @@
-sectionCast {
-  margin-top: 10px;
+.sectionCast {
+  padding-bottom: 30px;
 }
 
 .castList {
@@ -25,7 +25,6 @@ sectionCast {
   height: 180px;
 }
 
-.error {
-  padding-left: 40px;
-  padding-top: 10px;
+.notFound {
+  padding: 20px;
 }

@@ -22,26 +22,29 @@ const Cast = () => {
 
   return (
     <section className={css.sectionCast}>
-      {cast.length > 0 && (
+      {
         <ul className={css.castList}>
-          {cast.map(({ profile, name, character, id }) => {
-            return (
-              <li key={id} className={css.castListItem}>
-                <img
-                  className={css.image}
-                  src={profile ? `${API.getImage}${profile}` : defaultImage}
-                  alt={name}
-                />
-                <p>{name}</p>
-                <p>Character: {character}</p>
-              </li>
-            );
-          })}
+          {cast.length > 0 ? (
+            cast.map(({ profile, name, character, id }) => {
+              return (
+                <li key={id} className={css.castListItem}>
+                  <img
+                    className={css.image}
+                    src={profile ? `${API.getImage}${profile}` : defaultImage}
+                    alt={name}
+                  />
+                  <p>{name}</p>
+                  <p>Character: {character}</p>
+                </li>
+              );
+            })
+          ) : (
+            <li className={css.notFound} key={1}>
+              We don`t have any cast for this movie
+            </li>
+          )}
         </ul>
-      )}
-      {cast.length === 0 && (
-        <p className={css.error}>Sorry, we don't have cast for this movie</p>
-      )}
+      }
     </section>
   );
 };
