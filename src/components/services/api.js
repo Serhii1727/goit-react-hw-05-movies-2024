@@ -20,3 +20,10 @@ export const fetchGetCastMovie = id => {
 export const fetchGetMovieReviews = id => {
   return fetch(`${API.request}${id}/reviews`, options).then(res => res.json());
 };
+
+export const fetchSearchMovies = searchQuery => {
+  return fetch(
+    `${API.searchMovie}?query=${searchQuery}&include_adult=false&language=en-US&page=1`,
+    options
+  ).then(res => res.json());
+};
