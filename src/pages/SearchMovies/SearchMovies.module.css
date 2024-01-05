@@ -2,6 +2,7 @@
   display: flex;
   padding-left: 40px;
   padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 .input {
@@ -31,4 +32,17 @@
 .button:hover {
   color: white;
   background-color: orange;
+}
+
+.searchList {
+  padding-left: 40px;
+  list-style-type: square;
+}
+
+.searchItem:not(:last-child) {
+  margin-bottom: 2px;
+}
+
+.link {
+  text-decoration: none;
 }

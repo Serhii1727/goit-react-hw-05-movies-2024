@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useSearchParams, NavLink } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import css from './SearchMovies.module.css';
 import { fetchSearchMovies } from 'components/services/api';
@@ -15,7 +15,12 @@ const SearchMovies = () => {
     if (!searchQuery) {
       return;
     }
-    fetchSearchMovies(searchQuery).then(data => console.log(data));
+    fetchSearchMovies(searchQuery).then(({ results }) => {
+      const searchMovies = results.map(({ id, title }) => {
+        return { id, title };
+      });
+      setListFilterMovies(searchMovies);
+    });
   };
 
   const changeInput = event => {
@@ -36,6 +41,17 @@ const SearchMovies = () => {
           <FaSearch />
         </button>
       </form>
+      <ul className={css.searchList}>
+        {listFilterMovies.map(({ id, title }) => {
+          return (
+            <li className={css.searchItem} key={id}>
+              <NavLink className={css.link} to={`${id}`}>
+                {title}
+              </NavLink>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 };
