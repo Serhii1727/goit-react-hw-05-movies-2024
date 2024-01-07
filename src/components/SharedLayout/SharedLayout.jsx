@@ -8,7 +8,7 @@ const SharedLayout = () => {
       <header className={css.header}>
         <ul className={css.navList}>
           <li className={css.navItem}>
-            <Link to="/">Home</Link>
+            <Link to={'/' && '/goit-react-hw-05-movies-2024'}>Home</Link>
           </li>
           <li className={css.navItem}>
             <Link to="movies">Movies</Link>

@@ -14,6 +14,7 @@
 .navItem {
   list-style-type: none;
   font-weight: 800;
+  color: black;
 }
 
 .navItem:not(:last-child) {
