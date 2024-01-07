@@ -19,9 +19,14 @@ const SearchMovies = () => {
   const searchQuery = searchParam.get('query') ?? '';
 
   useEffect(() => {
+    if (!searchQuery) {
+      return;
+    }
     setStatus('pending');
+
     fetchSearchMovies(searchQuery)
       .then(({ results }) => {
+        console.log(results);
         const searchMovies = results.map(({ id, title }) => {
           return { id, title };
         });
