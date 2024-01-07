@@ -19,3 +19,8 @@
 .link {
   text-decoration: none;
 }
+
+.error {
+  padding-top: 50px;
+  text-align: center;
+}

@@ -16,3 +16,8 @@
   list-style-type: none;
   text-align: center;
 }
+
+.error {
+  padding-top: 50px;
+  text-align: center;
+}

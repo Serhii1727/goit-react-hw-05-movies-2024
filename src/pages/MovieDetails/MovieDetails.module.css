@@ -121,3 +121,8 @@
   list-style-type: none;
   margin-top: 20px;
 }
+
+.error {
+  padding-top: 50px;
+  text-align: center;
+}

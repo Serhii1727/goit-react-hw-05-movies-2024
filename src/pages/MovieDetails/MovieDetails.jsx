@@ -11,39 +11,43 @@ import defaultImage from '../../components/services/DefaultImage/defaultimage.jp
 const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState({});
   const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
   const { movieId } = useParams();
   const location = useLocation();
-
-  console.log('details', location);
 
   const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
     setStatus('pending');
-    fetchGetMovieDetails(movieId).then(
-      ({
-        title,
-        overview,
-        genres,
-        vote_average,
-        poster_path,
-        release_date,
-      }) => {
-        const date = new Date(release_date);
-        const dateRelease = date.getFullYear();
-
-        const userScore = Math.ceil(vote_average * 10);
-        setMovieDetails({
+    fetchGetMovieDetails(movieId)
+      .then(
+        ({
           title,
           overview,
           genres,
-          userScore,
-          poster: poster_path,
-          dateRelease,
-        });
-        setStatus('resolved');
-      }
-    );
+          vote_average,
+          poster_path,
+          release_date,
+        }) => {
+          const date = new Date(release_date);
+          const dateRelease = date.getFullYear();
+
+          const userScore = Math.ceil(vote_average * 10);
+          setMovieDetails({
+            title,
+            overview,
+            genres,
+            userScore,
+            poster: poster_path,
+            dateRelease,
+          });
+          setStatus('resolved');
+        }
+      )
+      .catch(error => {
+        setStatus('error');
+        setError(error.message);
+      });
   }, [movieId]);
 
   const { title, overview, genres, userScore, poster, dateRelease } =
@@ -52,19 +56,20 @@ const MovieDetails = () => {
   return (
     <>
       <main className={css.main}>
+        <section className={css.sectionButton}>
+          <Link to={backLinkHref}>
+            <button type="button" className={css.button}>
+              <span className={css.icon}>
+                <IoMdArrowRoundBack />
+              </span>
+              <span> Go back</span>
+            </button>
+          </Link>
+        </section>
         {status === 'pending' && <Loader />}
+        {status === 'error' && <h1 className={css.error}>{error}</h1>}
         {status === 'resolved' && (
           <>
-            <section className={css.sectionButton}>
-              <Link to={backLinkHref}>
-                <button type="button" className={css.button}>
-                  <span className={css.icon}>
-                    <IoMdArrowRoundBack />
-                  </span>
-                  <span> Go back</span>
-                </button>
-              </Link>
-            </section>
             <section className={css.containerMovie}>
               <div className={css.imageContainer}>
                 <img

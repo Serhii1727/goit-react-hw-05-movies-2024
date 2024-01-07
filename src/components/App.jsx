@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 import Home from 'pages/Home/Home';
 import SearchMovies from 'pages/SearchMovies/SearchMovies';
 import MovieDetails from 'pages/MovieDetails/MovieDetails';

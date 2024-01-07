@@ -7,23 +7,30 @@ import css from './Reviews.module.css';
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
 
   const { movieId } = useParams();
 
   useEffect(() => {
     setStatus('pending');
-    fetchGetMovieReviews(movieId).then(data => {
-      const { results } = data;
-      const currentReviews = results.map(({ author, content, id }) => {
-        return { author, content, id };
+    fetchGetMovieReviews(movieId)
+      .then(data => {
+        const { results } = data;
+        const currentReviews = results.map(({ author, content, id }) => {
+          return { author, content, id };
+        });
+        setReviews(currentReviews);
+        setStatus('resolved');
+      })
+      .catch(error => {
+        setStatus('error');
+        setError(error.message);
       });
-      setReviews(currentReviews);
-      setStatus('resolved');
-    });
   }, [movieId]);
   return (
     <>
       {status === 'pending' && <Loader />}
+      {status === 'error' && <h1 className={css.error}>{error}</h1>}
       {status === 'resolved' && (
         <section className={css.sectionReviews}>
           {

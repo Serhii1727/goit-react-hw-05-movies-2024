@@ -7,15 +7,20 @@ import css from './Home.module.css';
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
   const location = useLocation();
 
   useEffect(() => {
     setStatus('pending');
-    fetchGetTrendingMovies().then(({ results }) => {
-      console.log('fetchHome');
-      setTrendingMovies(results);
-      setStatus('resolved');
-    });
+    fetchGetTrendingMovies()
+      .then(({ results }) => {
+        setTrendingMovies(results);
+        setStatus('resolved');
+      })
+      .catch(error => {
+        setStatus('error');
+        setError(error.message);
+      });
   }, []);
 
   return (
@@ -41,6 +46,7 @@ const Home = () => {
           </ul>
         </main>
       )}
+      {status === 'error' && <h1 className={css.error}>{error}</h1>}
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchGetCastMovie } from 'components/services/api';
 import { API } from 'components/services/support';
 import Loader from 'components/Loader';
@@ -8,27 +8,32 @@ import defaultImage from '../services/DefaultImage/defaultimage.jpg';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);
+  const [error, setError] = useState('');
   const [status, setStatus] = useState('idle');
   const { movieId } = useParams();
-  const location = useLocation();
-  console.log('cast', location.state);
 
   useEffect(() => {
     setStatus('pending');
-    fetchGetCastMovie(movieId).then(({ cast }) => {
-      const dataCastMovie = cast.map(
-        ({ name, profile_path, character, id }) => {
-          return { name, profile: profile_path, character, id };
-        }
-      );
-      setCast(dataCastMovie);
-      setStatus('resolved');
-    });
+    fetchGetCastMovie(movieId)
+      .then(({ cast }) => {
+        const dataCastMovie = cast.map(
+          ({ name, profile_path, character, id }) => {
+            return { name, profile: profile_path, character, id };
+          }
+        );
+        setCast(dataCastMovie);
+        setStatus('resolved');
+      })
+      .catch(error => {
+        setStatus('error');
+        setError(error.message);
+      });
   }, [movieId]);
 
   return (
     <>
       {status === 'pending' && <Loader />}
+      {status === 'error' && <h1 className={css.error}>{error}</h1>}
       {status === 'resolved' && (
         <section className={css.sectionCast}>
           {
