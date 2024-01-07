@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { fetchGetCastMovie } from 'components/services/api';
 import { API } from 'components/services/support';
 import Loader from 'components/Loader';
@@ -10,6 +10,8 @@ const Cast = () => {
   const [cast, setCast] = useState([]);
   const [status, setStatus] = useState('idle');
   const { movieId } = useParams();
+  const location = useLocation();
+  console.log('cast', location.state);
 
   useEffect(() => {
     setStatus('pending');

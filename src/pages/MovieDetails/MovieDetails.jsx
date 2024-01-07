@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { fetchGetMovieDetails } from 'components/services/api';
 import { API } from 'components/services/support';
@@ -12,6 +12,11 @@ const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState({});
   const [status, setStatus] = useState('idle');
   const { movieId } = useParams();
+  const location = useLocation();
+
+  console.log('details', location);
+
+  const backLinkHref = location.state?.from ?? '/';
 
   useEffect(() => {
     setStatus('pending');
@@ -46,80 +51,86 @@ const MovieDetails = () => {
 
   return (
     <>
-      {status === 'pending' && <Loader />}
-      {status === 'resolved' && (
-        <main className={css.main}>
-          <section className={css.sectionButton}>
-            <Link to="/">
-              <button type="button" className={css.button}>
-                <span className={css.icon}>
-                  <IoMdArrowRoundBack />
-                </span>
-                <span> Go back</span>
-              </button>
-            </Link>
-          </section>
+      <main className={css.main}>
+        {status === 'pending' && <Loader />}
+        {status === 'resolved' && (
+          <>
+            <section className={css.sectionButton}>
+              <Link to={backLinkHref}>
+                <button type="button" className={css.button}>
+                  <span className={css.icon}>
+                    <IoMdArrowRoundBack />
+                  </span>
+                  <span> Go back</span>
+                </button>
+              </Link>
+            </section>
+            <section className={css.containerMovie}>
+              <div className={css.imageContainer}>
+                <img
+                  src={
+                    movieDetails.poster
+                      ? `${API.getImage}${poster}`
+                      : defaultImage
+                  }
+                  alt={title}
+                  className={css.image}
+                />
+              </div>
 
-          <section className={css.containerMovie}>
-            <div className={css.imageContainer}>
-              <img
-                src={
-                  movieDetails.poster
-                    ? `${API.getImage}${poster}`
-                    : defaultImage
-                }
-                alt={title}
-                className={css.image}
-              />
-            </div>
+              <div className={css.conteinerInfo}>
+                <h1 className={css.title}>
+                  <span className={css.nameMovie}>
+                    {title ? title : 'Not Found'}
+                  </span>
+                  <span>(</span>
+                  <span>{dateRelease ? dateRelease : 'Not found'}</span>
+                  <span>)</span>
+                </h1>
 
-            <div className={css.conteinerInfo}>
-              <h1 className={css.title}>
-                <span className={css.nameMovie}>
-                  {title ? title : 'Not Found'}
-                </span>
-                <span>(</span>
-                <span>{dateRelease ? dateRelease : 'Not found'}</span>
-                <span>)</span>
-              </h1>
-
-              <p className={css.infoScore}>
-                User score: {userScore ? `${userScore}%` : 'Not Found'}
-              </p>
-              <h2 className={css.overviewTitle}>Overview</h2>
-              <p className={css.overviewInfo}>
-                {overview ? overview : 'Not Found'}
-              </p>
-              <h3 className={css.genresTitle}>Genres</h3>
-              <ul className={css.genresList}>
-                {genres && genres.length > 0 ? (
-                  genres.map(({ id, name }) => {
-                    return (
-                      <li key={id} className={css.genre}>
-                        {name}
-                      </li>
-                    );
-                  })
-                ) : (
-                  <li className={css.notFoundGenres}>Not found</li>
-                )}
+                <p className={css.infoScore}>
+                  User score: {userScore ? `${userScore}%` : 'Not Found'}
+                </p>
+                <h2 className={css.overviewTitle}>Overview</h2>
+                <p className={css.overviewInfo}>
+                  {overview ? overview : 'Not Found'}
+                </p>
+                <h3 className={css.genresTitle}>Genres</h3>
+                <ul className={css.genresList}>
+                  {genres && genres.length > 0 ? (
+                    genres.map(({ id, name }) => {
+                      return (
+                        <li key={id} className={css.genre}>
+                          {name}
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <li className={css.notFoundGenres}>Not found</li>
+                  )}
+                </ul>
+              </div>
+            </section>
+            <section className={css.sectionAditionalInfo}>
+              <p>Additional Information</p>
+              <ul className={css.aditionalList}>
+                <li className={css.aditionalListItem}>
+                  <Link to="cast" state={{ from: location.state.from }}>
+                    Cast
+                  </Link>
+                </li>
+                <li>
+                  <Link to="reviews" state={{ from: location.state.from }}>
+                    Reviews
+                  </Link>
+                </li>
               </ul>
-            </div>
-          </section>
-          <section className={css.sectionAditionalInfo}>
-            <p>Additional Information</p>
-            <ul className={css.aditionalList}>
-              <li className={css.aditionalListItem}>
-                <Link to="cast">Cast</Link>
-              </li>
-              <li>
-                <Link to="reviews">Reviews</Link>
-              </li>
-            </ul>
-          </section>
-          <Outlet />
-        </main>
-      )}
+            </section>
+
+            <Outlet />
+          </>
+        )}
+      </main>
     </>
   );
 };

@@ -1,17 +1,19 @@
-import { useState } from 'react';
-import { useSearchParams, NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useSearchParams, NavLink, useLocation } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 import css from './SearchMovies.module.css';
 import { fetchSearchMovies } from 'components/services/api';
 
 const SearchMovies = () => {
   const [listFilterMovies, setListFilterMovies] = useState([]);
+  const [searchInInput, setSearchInInput] = useState('');
+  const location = useLocation();
+
   const [searchParam, setSearchParam] = useSearchParams();
 
   const searchQuery = searchParam.get('query') ?? '';
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  useEffect(() => {
     if (!searchQuery) {
       return;
     }
@@ -21,10 +23,16 @@ const SearchMovies = () => {
       });
       setListFilterMovies(searchMovies);
     });
+  }, [searchQuery]);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    setSearchParam({ query: searchInInput });
+    setSearchInInput('');
   };
 
   const changeInput = event => {
-    setSearchParam({ query: event.currentTarget.value });
+    setSearchInInput(event.currentTarget.value);
   };
 
   return (
@@ -34,7 +42,7 @@ const SearchMovies = () => {
           type="text"
           className={css.input}
           name="searchQuery"
-          value={searchQuery}
+          value={searchInInput}
           onChange={changeInput}
         ></input>
         <button type="submit" className={css.button}>
@@ -45,7 +53,11 @@ const SearchMovies = () => {
         {listFilterMovies.map(({ id, title }) => {
           return (
             <li className={css.searchItem} key={id}>
-              <NavLink className={css.link} to={`${id}`}>
+              <NavLink
+                className={css.link}
+                to={`${id}`}
+                state={{ from: location }}
+              >
                 {title}
               </NavLink>
             </li>
