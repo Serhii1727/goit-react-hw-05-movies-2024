@@ -1,23 +1,11 @@
 .main {
   margin-top: 20px;
-  padding-left: 40px;
 }
 
 .title {
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-.trendingList {
-  list-style-type: square;
-}
-
-.trendingItem:not(:last-child) {
-  margin-bottom: 2px;
-}
-
-.link {
-  text-decoration: none;
+  padding-left: 40px;
 }
 
 .error {

@@ -34,19 +34,6 @@
   background-color: orange;
 }
 
-.searchList {
-  padding-left: 40px;
-  list-style-type: square;
-}
-
-.searchItem:not(:last-child) {
-  margin-bottom: 2px;
-}
-
-.link {
-  text-decoration: none;
-}
-
 .error {
   padding-top: 50px;
   text-align: center;

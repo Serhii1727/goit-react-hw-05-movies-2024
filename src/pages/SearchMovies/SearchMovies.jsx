@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams, NavLink, useLocation } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { FaSearch } from 'react-icons/fa';
+import MoviesList from 'components/MoviesList';
 import Loader from 'components/Loader';
 import css from './SearchMovies.module.css';
 import { fetchSearchMovies } from 'components/services/api';
@@ -26,7 +27,6 @@ const SearchMovies = () => {
 
     fetchSearchMovies(searchQuery)
       .then(({ results }) => {
-        console.log(results);
         const searchMovies = results.map(({ id, title }) => {
           return { id, title };
         });
@@ -78,21 +78,23 @@ const SearchMovies = () => {
       {status === 'pending' && <Loader />}
       {status === 'error' && <h1 className={css.error}>{error}</h1>}
       {status === 'resolved' && (
-        <ul className={css.searchList}>
-          {listFilterMovies.map(({ id, title }) => {
-            return (
-              <li className={css.searchItem} key={id}>
-                <NavLink
-                  className={css.link}
-                  to={`${id}`}
-                  state={{ from: location }}
-                >
-                  {title}
-                </NavLink>
-              </li>
-            );
-          })}
-        </ul>
+        <MoviesList movies={listFilterMovies} location={location} />
+
+        // <ul className={css.searchList}>
+        //   {listFilterMovies.map(({ id, title }) => {
+        //     return (
+        //       <li className={css.searchItem} key={id}>
+        //         <NavLink
+        //           className={css.link}
+        //           to={`${id}`}
+        //           state={{ from: location }}
+        //         >
+        //           {title}
+        //         </NavLink>
+        //       </li>
+        //     );
+        //   })}
+        // </ul>
       )}
 
       <ToastContainer position="top-right" autoClose={3000} />

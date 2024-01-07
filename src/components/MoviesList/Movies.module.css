@@ -1,0 +1,12 @@
+.list {
+  padding-left: 40px;
+  list-style-type: square;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 2px;
+}
+
+.link {
+  text-decoration: none;
+}
