@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { fetchGetMovieDetails } from 'components/services/api';
@@ -131,8 +131,9 @@ const MovieDetails = () => {
                 </li>
               </ul>
             </section>
-
-            <Outlet />
+            <Suspense fallback={<Loader />}>
+              <Outlet />
+            </Suspense>
           </>
         )}
       </main>
